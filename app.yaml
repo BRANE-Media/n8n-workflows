@@ -1,0 +1,28 @@
+name: n8n-workflows-api
+services:
+- name: api
+  environment_slug: python
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: BRANE-Media/n8n-workflows
+  instance_size_slug: basic-xxs
+  instance_count: 1
+  run_command: uvicorn api_server:app --host 0.0.0.0 --port $PORT --workers 4 --worker-tmp-dir /dev/shm
+  envs:
+  - key: PYTHONUNBUFFERED
+    value: "1"
+  routes:
+  - path: /
+  static_sites:
+  - name: static
+    github:
+      repo: BRANE-Media/n8n-workflows
+      branch: main
+      deploy_on_push: true
+    source_dir: static
+    output_dir: static
+    index_document: index.html
+    catchall_document: index.html
+    routes:
+    - path: /static
