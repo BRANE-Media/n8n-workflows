@@ -2,6 +2,8 @@ name: n8n-workflows-api
 services:
 - name: api
   environment_slug: python
+  buildpacks:
+    - name: python
   github:
     branch: main
     deploy_on_push: true
@@ -14,15 +16,3 @@ services:
     value: "1"
   routes:
   - path: /
-  static_sites:
-  - name: static
-    github:
-      repo: BRANE-Media/n8n-workflows
-      branch: main
-      deploy_on_push: true
-    source_dir: static
-    output_dir: static
-    index_document: index.html
-    catchall_document: index.html
-    routes:
-    - path: /static
