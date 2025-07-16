@@ -10,9 +10,11 @@ services:
     repo: BRANE-Media/n8n-workflows
   instance_size_slug: basic-xxs
   instance_count: 1
-  run_command: uvicorn api_server:app --host 0.0.0.0 --port $PORT --workers 4 --worker-tmp-dir /dev/shm
+  run_command: uvicorn api_server:app --host 0.0.0.0 --port 8080 --workers 4
   envs:
   - key: PYTHONUNBUFFERED
     value: "1"
+  - key: PORT
+    value: "8080"
   routes:
   - path: /
